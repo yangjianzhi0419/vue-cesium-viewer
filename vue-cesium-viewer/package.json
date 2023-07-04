@@ -1,0 +1,16 @@
+{
+  "name": "vue-cesium-viewer",
+  "version": "1.0.1",
+  "description": "基于 Vue 2 的 Cesium Viewer 组件",
+  "main": "vue-cesium-viewer.common.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yangjianzhi",
+  "keywords": [
+    "vue-cesium",
+    "cesium",
+    "vue"
+  ],
+  "license": "ISC"
+}

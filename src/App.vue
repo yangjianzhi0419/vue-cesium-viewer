@@ -1,17 +1,16 @@
 <template>
   <div>
-    <cesium-earth />
+<!--    <viewer />-->
+    <y-viewer />
   </div>
 </template>
 
 <script>
-import CesiumEarth from "@/components/CesiumEarth";
+// import Viewer from "@/package/viewer/Viewer";
 
 export default {
   name: 'App',
-  components: {
-    CesiumEarth
-  }
+  // components: {Viewer}
 }
 </script>
 
