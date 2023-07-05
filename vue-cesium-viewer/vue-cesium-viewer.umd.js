@@ -54,6 +54,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  Viewer: function() { return /* reexport */ viewer; },
   "default": function() { return /* binding */ entry_lib; }
 });
 
@@ -686,23 +687,21 @@ Viewer.install = Vue => {
 /* harmony default export */ var viewer = (Viewer);
 ;// CONCATENATED MODULE: ./src/package/index.js
 
-const components = [viewer];
+const components = {
+  Viewer: viewer
+};
 const install = Vue => {
   // 判断组件是否安装，如果已经安装了就不在安装。
   if (install.installed) return;
   install.installed = true;
   // 遍历的方式注册所有的组件
-  components.map(component => Vue.use(component));
+  for (let key in components) {
+    Vue.use(components[key]);
+  }
 };
 
-// 检查vue是否安装，满足才执行
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue);
-}
 /* harmony default export */ var src_package = ({
-  // 所有的组件必须有一个install的方法，才能通过Vue.use()进行按需注册
-  install,
-  ...components
+  install
 });
 ;// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 

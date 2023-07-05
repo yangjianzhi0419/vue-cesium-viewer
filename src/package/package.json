@@ -1,6 +1,6 @@
 {
   "name": "vue-cesium-viewer",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "基于 Vue 2 的 Cesium Viewer 组件",
   "main": "vue-cesium-viewer.common.js",
   "scripts": {
