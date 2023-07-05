@@ -1,2 +1,3 @@
 # vue-cesium-viewer
-vue 2.x components for cesium viewer
+
+基于 vue 的 cesium viewer 组件库
