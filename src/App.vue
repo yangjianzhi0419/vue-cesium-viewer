@@ -1,16 +1,15 @@
 <template>
   <div>
-<!--    <viewer />-->
-    <y-viewer />
+    <viewer />
   </div>
 </template>
 
 <script>
-// import Viewer from "@/package/viewer/Viewer";
+import Viewer from "@/package/viewer/Viewer";
 
 export default {
   name: 'App',
-  // components: {Viewer}
+  components: {Viewer}
 }
 </script>
 

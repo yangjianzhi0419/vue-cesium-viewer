@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-
-import { Viewer } from 'vue-cesium-viewer'
-Vue.use(Viewer)
-
-window.Cesium = Cesium;
+import 'cesium/Build/Cesium/Widgets/widgets.css';
 
 Vue.config.productionTip = false
 

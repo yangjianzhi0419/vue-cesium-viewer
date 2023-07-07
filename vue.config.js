@@ -14,9 +14,9 @@ module.exports = defineConfig({
         },
         plugins: [
             new NodePolyfillPlugin(),
-            // new webpack.DefinePlugin({
-            //     CESIUM_BASE_URL: JSON.stringify('static')
-            // }),
+            new webpack.DefinePlugin({
+                CESIUM_BASE_URL: JSON.stringify('static')
+            }),
             // new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'Workers'), to: 'static/Workers'}]}),
             // new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'Assets'), to: 'static/Assets'}]}),
             // new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'ThirdParty'), to: 'static/ThirdParty'}]}),
