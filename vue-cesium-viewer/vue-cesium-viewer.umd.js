@@ -1,17 +1,49 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
+		module.exports = factory(require("Cesium"));
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
+		define(["Cesium"], factory);
 	else if(typeof exports === 'object')
-		exports["vue-cesium-viewer"] = factory();
+		exports["vue-cesium-viewer"] = factory(require("Cesium"));
 	else
-		root["vue-cesium-viewer"] = factory();
-})((typeof self !== 'undefined' ? self : this), function() {
+		root["vue-cesium-viewer"] = factory(root["Cesium"]);
+})((typeof self !== 'undefined' ? self : this), function(__WEBPACK_EXTERNAL_MODULE__89__) {
 return /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 89:
+/***/ (function(module) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__89__;
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
@@ -49,6 +81,8 @@ return /******/ (function() { // webpackBootstrap
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -75,7 +109,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/package/viewer/Viewer.vue?vue&type=template&id=0fc5176f&scoped=true&
+;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/package/viewer/Viewer.vue?vue&type=template&id=8ba3f19a&scoped=true&
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -89,9 +123,9 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
+// EXTERNAL MODULE: external "Cesium"
+var external_Cesium_ = __webpack_require__(89);
 ;// CONCATENATED MODULE: ./src/package/utils/utils.js
-const utils_toString = Object.prototype.toString;
-
 /**
  * 移除对象中的空值。
  * @param {*} o
@@ -151,7 +185,7 @@ function isUndefined(val) {
  * @returns {boolean} True if value is an Array, otherwise false
  */
 function isArray(val) {
-  return utils_toString.call(val) === '[object Array]';
+  return Object.prototype.toString.call(val) === '[object Array]';
 }
 ;// CONCATENATED MODULE: ./src/package/utils/events.js
 /**
@@ -237,6 +271,7 @@ const Events = {
 
 
 
+
 /* harmony default export */ var Viewervue_type_script_lang_js_ = ({
   name: "y-viewer",
   props: {
@@ -311,34 +346,6 @@ const Events = {
       default: true
     }
   },
-  created() {
-    Object.defineProperties(this, {
-      dataSources: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.dataSources
-      },
-      entities: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.entities
-      },
-      imageryLayers: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.imageryLayers
-      },
-      primitives: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.scene.primitives
-      },
-      groundPrimitives: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.scene.groundPrimitives
-      },
-      postProcessStages: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.scene.postProcessStages
-      }
-    });
-  },
   mounted() {
     this.load();
   },
@@ -349,8 +356,8 @@ const Events = {
     init() {
       const $el = this.$refs.viewer;
       const options = this.viewerOptions();
-      window.Cesium.Ion.defaultAccessToken = this.accessToken;
-      let viewer = this.viewerCreator ? this.viewerCreator(this, $el, options) : new window.Cesium.Viewer($el, options);
+      external_Cesium_.Ion.defaultAccessToken = this.accessToken;
+      let viewer = this.viewerCreator ? this.viewerCreator(this, $el, options) : new external_Cesium_.Viewer($el, options);
       this.viewer = viewer;
       if (this.camera) {
         this.setCamera(this.camera);
@@ -358,22 +365,23 @@ const Events = {
       if (!this.logo) {
         viewer.cesiumWidget.creditContainer.style.display = 'none';
       }
-      if (window.Cesium.defined(viewer.animation)) {
+      if (external_Cesium_.defined(viewer.animation)) {
         viewer.animation.viewModel.dateFormatter = this.localeDateTimeFormatter;
         viewer.animation.viewModel.timeFormatter = this.localeTimeFormatter;
       }
-      if (window.Cesium.defined(viewer.timeline)) {
+      if (external_Cesium_.defined(viewer.timeline)) {
         viewer.timeline.makeLabel = time => {
           return this.localeDateTimeFormatter(time);
         };
         viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime);
       }
-      viewer.widgetResizeed = new window.Cesium.Event();
+      viewer.widgetResizeed = new external_Cesium_.Event();
       this.registerCameraChangedEvent();
       this.registerEvents(true);
       const readyObj = {
         viewer,
-        vm: this
+        vm: this,
+        cesium: external_Cesium_
       };
       this.$emit('ready', readyObj);
       this._mounted = true;
@@ -414,16 +422,16 @@ const Events = {
       const position = val.position;
       if (position.lng && position.lat) {
         viewer.camera.setView({
-          destination: window.Cesium.Cartesian3.fromDegrees(position.lng, position.lat, position.height || 0, viewer.scene.globe.ellipsoid),
+          destination: external_Cesium_.Cartesian3.fromDegrees(position.lng, position.lat, position.height || 0, viewer.scene.globe.ellipsoid),
           orientation: {
-            heading: window.Cesium.Math.toRadians(val.heading || 360),
-            pitch: window.Cesium.Math.toRadians(val.pitch || -90),
-            roll: window.Cesium.Math.toRadians(val.roll || 0)
+            heading: external_Cesium_.Math.toRadians(val.heading || 360),
+            pitch: external_Cesium_.Math.toRadians(val.pitch || -90),
+            roll: external_Cesium_.Math.toRadians(val.roll || 0)
           }
         });
       } else if (position.x && position.y && position.z) {
         viewer.camera.setView({
-          destination: new window.Cesium.Cartesian3(position.x, position.y, position.z),
+          destination: new external_Cesium_.Cartesian3(position.x, position.y, position.z),
           orientation: {
             heading: val.heading || 2 * Math.PI,
             pitch: val.pitch || -Math.PI / 2,
@@ -443,13 +451,13 @@ const Events = {
         const instance = isArray(eventName.name) && viewer[eventName.name[0]] ? viewer?.[eventName.name[0]]?.[eventName.name[1]] : viewer[eventName.name];
         instance && bindEvent.call(this, instance, eventName.events, flag);
       });
-      const handler = new window.Cesium.ScreenSpaceEventHandler(viewer.canvas);
+      const handler = new external_Cesium_.ScreenSpaceEventHandler(viewer.canvas);
       Events['viewer-mouse-events'].forEach(eventName => {
         const listener = this.$listeners[eventName];
         if (flag) {
-          listener && handler.setInputAction(listener.fns, window.Cesium.ScreenSpaceEventType[eventName]);
+          listener && handler.setInputAction(listener.fns, external_Cesium_.ScreenSpaceEventType[eventName]);
         } else {
-          listener && handler.removeInputAction(window.Cesium.ScreenSpaceEventType[eventName]);
+          listener && handler.removeInputAction(external_Cesium_.ScreenSpaceEventType[eventName]);
         }
       });
     },
@@ -464,13 +472,13 @@ const Events = {
         if (this.camera.position.lng) {
           camera = {
             position: {
-              lng: window.Cesium.Math.toDegrees(cartographic.longitude),
-              lat: window.Cesium.Math.toDegrees(cartographic.latitude),
+              lng: external_Cesium_.Math.toDegrees(cartographic.longitude),
+              lat: external_Cesium_.Math.toDegrees(cartographic.latitude),
               height: cartographic.height
             },
-            heading: window.Cesium.Math.toDegrees(viewer.camera.heading || 360),
-            pitch: window.Cesium.Math.toDegrees(viewer.camera.pitch || -90),
-            roll: window.Cesium.Math.toDegrees(viewer.camera.roll || 0)
+            heading: external_Cesium_.Math.toDegrees(viewer.camera.heading || 360),
+            pitch: external_Cesium_.Math.toDegrees(viewer.camera.pitch || -90),
+            roll: external_Cesium_.Math.toDegrees(viewer.camera.roll || 0)
           };
         } else {
           camera = {
@@ -500,7 +508,7 @@ const Events = {
 
       // 维护影像图层顺序
       if (autoSortImageryLayers) {
-        layer.sortOrder = window.Cesium.defined(layer.sortOrder) ? layer.sortOrder : 9999;
+        layer.sortOrder = external_Cesium_.defined(layer.sortOrder) ? layer.sortOrder : 9999;
         viewer.imageryLayers._layers.sort((a, b) => a.sortOrder - b.sortOrder);
         viewer.imageryLayers._update();
       }
@@ -508,7 +516,7 @@ const Events = {
     localeDateTimeFormatter(date, viewModel, ignoredate) {
       const {
         JulianDate
-      } = window.Cesium;
+      } = external_Cesium_;
       let TZCode = new Date().getTimezoneOffset() === 0 ? 'UTC' : 'UTC' + '+' + -(new Date().getTimezoneOffset() / 60);
       const jsDate = JulianDate.toDate(date);
       const timeString = jsDate.toLocaleString("zh-hans", {
@@ -673,7 +681,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "0fc5176f",
+  "8ba3f19a",
   null
   
 )
@@ -709,6 +717,7 @@ const install = Vue => {
 /* harmony default export */ var entry_lib = (src_package);
 
 
+}();
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;

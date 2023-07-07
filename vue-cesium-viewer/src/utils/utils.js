@@ -1,5 +1,3 @@
-const toString = Object.prototype.toString
-
 /**
  * 移除对象中的空值。
  * @param {*} o
@@ -66,5 +64,5 @@ function isUndefined (val) {
  * @returns {boolean} True if value is an Array, otherwise false
  */
 export function isArray (val) {
-    return toString.call(val) === '[object Array]'
+    return Object.prototype.toString.call(val) === '[object Array]'
 }

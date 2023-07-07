@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import * as Cesium from 'cesium'
 import { removeNullItem, isArray } from "../utils/utils";
 import bindEvent from "../utils/bindEvent";
 import {Events} from "../utils/events";
@@ -84,34 +85,6 @@ export default {
       default: true
     }
   },
-  created() {
-    Object.defineProperties(this, {
-      dataSources: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.dataSources
-      },
-      entities: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.entities
-      },
-      imageryLayers: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.imageryLayers
-      },
-      primitives: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.scene.primitives
-      },
-      groundPrimitives: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.scene.groundPrimitives
-      },
-      postProcessStages: {
-        enumerable: true,
-        get: () => this.viewer && this.viewer.scene.postProcessStages
-      }
-    })
-  },
   mounted() {
     this.load();
   },
@@ -122,11 +95,11 @@ export default {
     init() {
       const $el = this.$refs.viewer;
       const options = this.viewerOptions();
-      window.Cesium.Ion.defaultAccessToken = this.accessToken;
+      Cesium.Ion.defaultAccessToken = this.accessToken;
 
       let viewer = this.viewerCreator
           ? this.viewerCreator(this, $el, options)
-          : new window.Cesium.Viewer($el, options);
+          : new Cesium.Viewer($el, options);
       this.viewer = viewer;
 
       if (this.camera) {
@@ -136,22 +109,22 @@ export default {
         viewer.cesiumWidget.creditContainer.style.display = 'none'
       }
 
-      if (window.Cesium.defined(viewer.animation)) {
+      if (Cesium.defined(viewer.animation)) {
         viewer.animation.viewModel.dateFormatter = this.localeDateTimeFormatter
         viewer.animation.viewModel.timeFormatter = this.localeTimeFormatter
       }
-      if (window.Cesium.defined(viewer.timeline)) {
+      if (Cesium.defined(viewer.timeline)) {
         viewer.timeline.makeLabel = (time) => {
           return this.localeDateTimeFormatter(time)
         }
         viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime)
       }
 
-      viewer.widgetResizeed = new window.Cesium.Event();
+      viewer.widgetResizeed = new Cesium.Event();
       this.registerCameraChangedEvent();
       this.registerEvents(true);
 
-      const readyObj = {viewer, vm: this};
+      const readyObj = {viewer, vm: this, cesium: Cesium};
       this.$emit('ready', readyObj);
       this._mounted = true
 
@@ -190,21 +163,21 @@ export default {
       const position = val.position;
       if (position.lng && position.lat) {
         viewer.camera.setView({
-          destination: window.Cesium.Cartesian3.fromDegrees(
+          destination: Cesium.Cartesian3.fromDegrees(
               position.lng,
               position.lat,
               position.height || 0,
               viewer.scene.globe.ellipsoid
           ),
           orientation: {
-            heading: window.Cesium.Math.toRadians(val.heading || 360),
-            pitch: window.Cesium.Math.toRadians(val.pitch || -90),
-            roll: window.Cesium.Math.toRadians(val.roll || 0)
+            heading: Cesium.Math.toRadians(val.heading || 360),
+            pitch: Cesium.Math.toRadians(val.pitch || -90),
+            roll: Cesium.Math.toRadians(val.roll || 0)
           }
         })
       } else if (position.x && position.y && position.z) {
         viewer.camera.setView({
-          destination: new window.Cesium.Cartesian3(position.x, position.y, position.z),
+          destination: new Cesium.Cartesian3(position.x, position.y, position.z),
           orientation: {
             heading: val.heading || 2 * Math.PI,
             pitch: val.pitch || -Math.PI / 2,
@@ -227,13 +200,13 @@ export default {
                 : viewer[eventName.name];
         instance && bindEvent.call(this, instance, eventName.events, flag);
       })
-      const handler = new window.Cesium.ScreenSpaceEventHandler(viewer.canvas);
+      const handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
       Events['viewer-mouse-events'].forEach((eventName) => {
         const listener = this.$listeners[eventName]
         if (flag) {
-          listener && handler.setInputAction(listener.fns, window.Cesium.ScreenSpaceEventType[eventName])
+          listener && handler.setInputAction(listener.fns, Cesium.ScreenSpaceEventType[eventName])
         } else {
-          listener && handler.removeInputAction(window.Cesium.ScreenSpaceEventType[eventName])
+          listener && handler.removeInputAction(Cesium.ScreenSpaceEventType[eventName])
         }
       })
     },
@@ -247,13 +220,13 @@ export default {
         if (this.camera.position.lng) {
           camera = {
             position: {
-              lng: window.Cesium.Math.toDegrees(cartographic.longitude),
-              lat: window.Cesium.Math.toDegrees(cartographic.latitude),
+              lng: Cesium.Math.toDegrees(cartographic.longitude),
+              lat: Cesium.Math.toDegrees(cartographic.latitude),
               height: cartographic.height
             },
-            heading: window.Cesium.Math.toDegrees(viewer.camera.heading || 360),
-            pitch: window.Cesium.Math.toDegrees(viewer.camera.pitch || -90),
-            roll: window.Cesium.Math.toDegrees(viewer.camera.roll || 0)
+            heading: Cesium.Math.toDegrees(viewer.camera.heading || 360),
+            pitch: Cesium.Math.toDegrees(viewer.camera.pitch || -90),
+            roll: Cesium.Math.toDegrees(viewer.camera.roll || 0)
           }
         } else {
           camera = {
@@ -281,13 +254,13 @@ export default {
 
       // 维护影像图层顺序
       if (autoSortImageryLayers) {
-        layer.sortOrder = window.Cesium.defined(layer.sortOrder) ? layer.sortOrder : 9999;
+        layer.sortOrder = Cesium.defined(layer.sortOrder) ? layer.sortOrder : 9999;
         viewer.imageryLayers._layers.sort((a, b) => a.sortOrder - b.sortOrder);
         viewer.imageryLayers._update();
       }
     },
     localeDateTimeFormatter(date, viewModel, ignoredate) {
-      const {JulianDate} = window.Cesium
+      const {JulianDate} = Cesium
       let TZCode = new Date().getTimezoneOffset() === 0 ? 'UTC' : 'UTC' + '+' + -(new Date().getTimezoneOffset() / 60)
       const jsDate = JulianDate.toDate(date)
       const timeString = jsDate

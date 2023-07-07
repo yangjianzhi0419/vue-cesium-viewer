@@ -9,15 +9,18 @@ const cesiumSource = 'node_modules/cesium/Build/Cesium'
 module.exports = defineConfig({
     transpileDependencies: true,
     configureWebpack: {
+        externals: {
+            cesium: "Cesium"
+        },
         plugins: [
             new NodePolyfillPlugin(),
-            new webpack.DefinePlugin({
-                CESIUM_BASE_URL: JSON.stringify('static')
-            }),
-            new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'Workers'), to: 'static/Workers'}]}),
-            new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'Assets'), to: 'static/Assets'}]}),
-            new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'ThirdParty'), to: 'static/ThirdParty'}]}),
-            new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'Widgets'), to: 'static/Widgets'}]})
+            // new webpack.DefinePlugin({
+            //     CESIUM_BASE_URL: JSON.stringify('static')
+            // }),
+            // new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'Workers'), to: 'static/Workers'}]}),
+            // new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'Assets'), to: 'static/Assets'}]}),
+            // new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'ThirdParty'), to: 'static/ThirdParty'}]}),
+            // new CopyWebpackPlugin({patterns: [{from: path.join(cesiumSource, 'Widgets'), to: 'static/Widgets'}]})
         ]
     }
 })
