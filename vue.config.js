@@ -10,7 +10,7 @@ module.exports = defineConfig({
     transpileDependencies: true,
     configureWebpack: {
         externals: {
-            cesium: "Cesium"
+            cesium: "cesium"
         },
         plugins: [
             new NodePolyfillPlugin(),

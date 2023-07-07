@@ -1,21 +1,21 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("Cesium"));
+		module.exports = factory(require("cesium"));
 	else if(typeof define === 'function' && define.amd)
-		define(["Cesium"], factory);
+		define(["cesium"], factory);
 	else if(typeof exports === 'object')
-		exports["vue-cesium-viewer"] = factory(require("Cesium"));
+		exports["vue-cesium-viewer"] = factory(require("cesium"));
 	else
-		root["vue-cesium-viewer"] = factory(root["Cesium"]);
-})((typeof self !== 'undefined' ? self : this), function(__WEBPACK_EXTERNAL_MODULE__89__) {
+		root["vue-cesium-viewer"] = factory(root["cesium"]);
+})((typeof self !== 'undefined' ? self : this), function(__WEBPACK_EXTERNAL_MODULE__897__) {
 return /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 89:
+/***/ 897:
 /***/ (function(module) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE__89__;
+module.exports = __WEBPACK_EXTERNAL_MODULE__897__;
 
 /***/ })
 
@@ -123,8 +123,8 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-// EXTERNAL MODULE: external "Cesium"
-var external_Cesium_ = __webpack_require__(89);
+// EXTERNAL MODULE: external "cesium"
+var external_cesium_ = __webpack_require__(897);
 ;// CONCATENATED MODULE: ./src/package/utils/utils.js
 /**
  * 移除对象中的空值。
@@ -356,8 +356,8 @@ const Events = {
     init() {
       const $el = this.$refs.viewer;
       const options = this.viewerOptions();
-      external_Cesium_.Ion.defaultAccessToken = this.accessToken;
-      let viewer = this.viewerCreator ? this.viewerCreator(this, $el, options) : new external_Cesium_.Viewer($el, options);
+      external_cesium_.Ion.defaultAccessToken = this.accessToken;
+      let viewer = this.viewerCreator ? this.viewerCreator(this, $el, options) : new external_cesium_.Viewer($el, options);
       this.viewer = viewer;
       if (this.camera) {
         this.setCamera(this.camera);
@@ -365,23 +365,23 @@ const Events = {
       if (!this.logo) {
         viewer.cesiumWidget.creditContainer.style.display = 'none';
       }
-      if (external_Cesium_.defined(viewer.animation)) {
+      if (external_cesium_.defined(viewer.animation)) {
         viewer.animation.viewModel.dateFormatter = this.localeDateTimeFormatter;
         viewer.animation.viewModel.timeFormatter = this.localeTimeFormatter;
       }
-      if (external_Cesium_.defined(viewer.timeline)) {
+      if (external_cesium_.defined(viewer.timeline)) {
         viewer.timeline.makeLabel = time => {
           return this.localeDateTimeFormatter(time);
         };
         viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime);
       }
-      viewer.widgetResizeed = new external_Cesium_.Event();
+      viewer.widgetResizeed = new external_cesium_.Event();
       this.registerCameraChangedEvent();
       this.registerEvents(true);
       const readyObj = {
         viewer,
         vm: this,
-        cesium: external_Cesium_
+        cesium: external_cesium_
       };
       this.$emit('ready', readyObj);
       this._mounted = true;
@@ -422,16 +422,16 @@ const Events = {
       const position = val.position;
       if (position.lng && position.lat) {
         viewer.camera.setView({
-          destination: external_Cesium_.Cartesian3.fromDegrees(position.lng, position.lat, position.height || 0, viewer.scene.globe.ellipsoid),
+          destination: external_cesium_.Cartesian3.fromDegrees(position.lng, position.lat, position.height || 0, viewer.scene.globe.ellipsoid),
           orientation: {
-            heading: external_Cesium_.Math.toRadians(val.heading || 360),
-            pitch: external_Cesium_.Math.toRadians(val.pitch || -90),
-            roll: external_Cesium_.Math.toRadians(val.roll || 0)
+            heading: external_cesium_.Math.toRadians(val.heading || 360),
+            pitch: external_cesium_.Math.toRadians(val.pitch || -90),
+            roll: external_cesium_.Math.toRadians(val.roll || 0)
           }
         });
       } else if (position.x && position.y && position.z) {
         viewer.camera.setView({
-          destination: new external_Cesium_.Cartesian3(position.x, position.y, position.z),
+          destination: new external_cesium_.Cartesian3(position.x, position.y, position.z),
           orientation: {
             heading: val.heading || 2 * Math.PI,
             pitch: val.pitch || -Math.PI / 2,
@@ -451,13 +451,13 @@ const Events = {
         const instance = isArray(eventName.name) && viewer[eventName.name[0]] ? viewer?.[eventName.name[0]]?.[eventName.name[1]] : viewer[eventName.name];
         instance && bindEvent.call(this, instance, eventName.events, flag);
       });
-      const handler = new external_Cesium_.ScreenSpaceEventHandler(viewer.canvas);
+      const handler = new external_cesium_.ScreenSpaceEventHandler(viewer.canvas);
       Events['viewer-mouse-events'].forEach(eventName => {
         const listener = this.$listeners[eventName];
         if (flag) {
-          listener && handler.setInputAction(listener.fns, external_Cesium_.ScreenSpaceEventType[eventName]);
+          listener && handler.setInputAction(listener.fns, external_cesium_.ScreenSpaceEventType[eventName]);
         } else {
-          listener && handler.removeInputAction(external_Cesium_.ScreenSpaceEventType[eventName]);
+          listener && handler.removeInputAction(external_cesium_.ScreenSpaceEventType[eventName]);
         }
       });
     },
@@ -472,13 +472,13 @@ const Events = {
         if (this.camera.position.lng) {
           camera = {
             position: {
-              lng: external_Cesium_.Math.toDegrees(cartographic.longitude),
-              lat: external_Cesium_.Math.toDegrees(cartographic.latitude),
+              lng: external_cesium_.Math.toDegrees(cartographic.longitude),
+              lat: external_cesium_.Math.toDegrees(cartographic.latitude),
               height: cartographic.height
             },
-            heading: external_Cesium_.Math.toDegrees(viewer.camera.heading || 360),
-            pitch: external_Cesium_.Math.toDegrees(viewer.camera.pitch || -90),
-            roll: external_Cesium_.Math.toDegrees(viewer.camera.roll || 0)
+            heading: external_cesium_.Math.toDegrees(viewer.camera.heading || 360),
+            pitch: external_cesium_.Math.toDegrees(viewer.camera.pitch || -90),
+            roll: external_cesium_.Math.toDegrees(viewer.camera.roll || 0)
           };
         } else {
           camera = {
@@ -508,7 +508,7 @@ const Events = {
 
       // 维护影像图层顺序
       if (autoSortImageryLayers) {
-        layer.sortOrder = external_Cesium_.defined(layer.sortOrder) ? layer.sortOrder : 9999;
+        layer.sortOrder = external_cesium_.defined(layer.sortOrder) ? layer.sortOrder : 9999;
         viewer.imageryLayers._layers.sort((a, b) => a.sortOrder - b.sortOrder);
         viewer.imageryLayers._update();
       }
@@ -516,7 +516,7 @@ const Events = {
     localeDateTimeFormatter(date, viewModel, ignoredate) {
       const {
         JulianDate
-      } = external_Cesium_;
+      } = external_cesium_;
       let TZCode = new Date().getTimezoneOffset() === 0 ? 'UTC' : 'UTC' + '+' + -(new Date().getTimezoneOffset() / 60);
       const jsDate = JulianDate.toDate(date);
       const timeString = jsDate.toLocaleString("zh-hans", {
